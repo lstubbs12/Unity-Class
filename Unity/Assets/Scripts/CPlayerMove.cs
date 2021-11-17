@@ -15,15 +15,19 @@ public class CPlayerMove : MonoBehaviour
     private Rigidbody rb;
     private bool doJump;
     public float camSpeed = 500;
-    //public Transform camera;
+    public Transform camera;
     Vector3 velocity;
 
 
     public bool isGrounded;
 
     // Start is called before the first frame update
+
     void Start()
     {
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
         velocity = rb.velocity;
     }
@@ -31,6 +35,8 @@ public class CPlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         isGrounded = Physics.CheckSphere(foot.position, checkRadius, floorLayers);
 
         x = Input.GetAxis("Horizontal");
@@ -50,9 +56,11 @@ public class CPlayerMove : MonoBehaviour
         //transform.position += transform.forward * z * speed + transform.right * x * speed;
 
 
+        Quaternion cam = Quaternion.AngleAxis(camera.rotation.eulerAngles.y, Vector3.up);
         Vector3 movement = new Vector3(x * Time.deltaTime * speed, 0, z * Time.deltaTime * speed);
+        movement = cam * movement;
         rb.AddForce(movement * speed * Time.deltaTime, ForceMode.VelocityChange);
-        
+
 
 
 
