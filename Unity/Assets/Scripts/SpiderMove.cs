@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpiderMove : MonoBehaviour
 {
     [SerializeField] private Transform spider;
-    [SerializeField] private Animation anim;
+    //[SerializeField] private Animation anim;
     public float speed = 5;
 
     private void Update()
@@ -15,8 +15,9 @@ public class SpiderMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        anim.Play();
+        //anim.Play();
 
-        spider.Translate(spider.forward * speed * Time.deltaTime);
+        spider.Translate(spider.right * speed * Time.deltaTime);
+        //spider.Rotate(0, 1, 0);
     }
 }

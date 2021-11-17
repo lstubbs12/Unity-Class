@@ -8,7 +8,7 @@ public class CPlayerMove : MonoBehaviour
     public Transform foot;
     public float checkRadius = .2f;
     public float speed = 10;
-    public float x, z;
+    private float x, z;
     public float jumpForce = 15;
     public LayerMask floorLayers;
     public int numCollectedKeys;
@@ -36,7 +36,6 @@ public class CPlayerMove : MonoBehaviour
     void Update()
     {
 
-
         isGrounded = Physics.CheckSphere(foot.position, checkRadius, floorLayers);
 
         x = Input.GetAxis("Horizontal");
@@ -46,7 +45,8 @@ public class CPlayerMove : MonoBehaviour
         {
             doJump = true;
         }
-       
+
+
 
 
     }
@@ -55,16 +55,17 @@ public class CPlayerMove : MonoBehaviour
         //rb.MovePosition(transform.position + movement);
         //transform.position += transform.forward * z * speed + transform.right * x * speed;
 
+        
 
         Quaternion cam = Quaternion.AngleAxis(camera.rotation.eulerAngles.y, Vector3.up);
-        Vector3 movement = new Vector3(x * Time.deltaTime * speed, 0, z * Time.deltaTime * speed);
+        Vector3 movement = new Vector3(x * Time.fixedDeltaTime * speed, 0, z * Time.fixedDeltaTime * speed);
         movement = cam * movement;
-        rb.AddForce(movement * speed * Time.deltaTime, ForceMode.VelocityChange);
+        rb.AddForce(movement * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
 
 
 
 
-        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * Time.deltaTime * camSpeed);
+        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * Time.fixedDeltaTime * camSpeed);
 
         if (doJump)
         {
