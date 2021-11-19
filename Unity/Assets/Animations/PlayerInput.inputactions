@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Run1",
+                    "name": "Run",
                     "type": "Button",
                     "id": "f81c23ec-4751-4951-9522-b04e00283534",
                     "expectedControlType": "Button",
@@ -85,7 +85,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Run1",
+                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
