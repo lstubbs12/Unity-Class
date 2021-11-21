@@ -47,11 +47,16 @@ public class AnimationAndMovementController : MonoBehaviour
     }
     void onMovementInput(InputAction.CallbackContext context)
     {
+        Quaternion cam = Quaternion.AngleAxis(camera.rotation.eulerAngles.y, Vector3.up);
+
         currentMovementInput = context.ReadValue<Vector2>();
         currentMovement.x = currentMovementInput.x;
         currentMovement.z = currentMovementInput.y;
+        currentMovement = cam * currentMovement;
         currentRunMovement.x = currentMovementInput.x * runMultiplier;
         currentRunMovement.z = currentMovementInput.y * runMultiplier;
+        currentRunMovement = cam * currentRunMovement;
+
         isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
 
     }
