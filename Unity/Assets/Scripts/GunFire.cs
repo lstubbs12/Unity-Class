@@ -22,12 +22,13 @@ public class GunFire : MonoBehaviour
     void Update()
     {
         Camera cam = camera.GetComponent<Camera>();
-        Vector3 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
-        Ray ray = new Ray(camera.position, camera.forward);
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        //Vector3 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        //Ray ray = new Ray(camera.position, camera.forward);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 100))
         {
-            
+            Debug.Log("Hit " + hit.collider.name);
         }
 
         
@@ -37,7 +38,7 @@ public class GunFire : MonoBehaviour
             
             GameObject bullet = Instantiate(bulletpre, gunTip.position, gunTip.rotation);
             //bullet.GetComponent<Rigidbody>().velocity = player.GetComponent<Rigidbody>().velocity;
-            bullet.GetComponent<Rigidbody>().AddForce(camera.position - gunTip.position * bulletForce, ForceMode.Impulse);
+            bullet.GetComponent<Rigidbody>().AddForce((hit.point - gunTip.position) * bulletForce, ForceMode.Impulse);
             
         }
 
