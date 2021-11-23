@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class GunFire : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class GunFire : MonoBehaviour
     [SerializeField] private Transform gunTip;
     [SerializeField] private float bulletForce;
     [SerializeField] private GameObject player;
+    public Transform camera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +21,25 @@ public class GunFire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Camera cam = camera.GetComponent<Camera>();
+        Vector3 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        Ray ray = new Ray(camera.position, camera.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 100))
+        {
+            
+        }
+
+        
+
         if (Input.GetMouseButtonDown(0))
         {
+            
             GameObject bullet = Instantiate(bulletpre, gunTip.position, gunTip.rotation);
-            bullet.GetComponent<Rigidbody>().velocity = player.GetComponent<Rigidbody>().velocity;
-            bullet.GetComponent<Rigidbody>().AddForce(gunTip.forward * bulletForce, ForceMode.Impulse);
+            //bullet.GetComponent<Rigidbody>().velocity = player.GetComponent<Rigidbody>().velocity;
+            bullet.GetComponent<Rigidbody>().AddForce(camera.position - gunTip.position * bulletForce, ForceMode.Impulse);
+            
         }
+
     }
 }
