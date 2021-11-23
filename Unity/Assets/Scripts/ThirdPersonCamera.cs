@@ -30,14 +30,8 @@ public class ThirdPersonCamera : MonoBehaviour
         x = Input.GetAxis("Mouse X");
         y = Input.GetAxis("Mouse Y");
 
-        swivelAngle += x * rotateSpeed * Time.deltaTime;
-        tiltAngle += -y * rotateSpeed * Time.deltaTime;
-
-        tiltAngle = Mathf.Clamp(tiltAngle, -45, 45);
-
-        Vector3 eulerRot = new Vector3(tiltAngle, swivelAngle, 0);
-        transform.position = Vector3.Lerp(transform.position, target.position, 0.1f);
-        transform.rotation = Quaternion.Euler(eulerRot);
+        transform.RotateAround(target.transform.position, -Vector3.up, x * rotateSpeed); 
+        transform.RotateAround(Vector3.zero, transform.right, y * rotateSpeed);
     }
 
 }
