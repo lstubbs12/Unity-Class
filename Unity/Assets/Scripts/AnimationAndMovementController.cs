@@ -22,7 +22,8 @@ public class AnimationAndMovementController : MonoBehaviour
     Vector3 currentRunMovement;
     bool isMovementPressed;
     float rotationFactorPerFrame = 15f;
-    float runMultiplier = 3.0f;
+    float runMultiplier = 2.0f;
+    float speedMultiplier = 3.0f;
     bool isRunPressed;
     public Transform camera;
 
@@ -130,11 +131,11 @@ public class AnimationAndMovementController : MonoBehaviour
         Quaternion cam = Quaternion.AngleAxis(camera.rotation.eulerAngles.y, Vector3.up);
 
         currentMovementInput = context.ReadValue<Vector2>();
-        currentMovement.x = currentMovementInput.x;
-        currentMovement.z = currentMovementInput.y;
+        currentMovement.x = currentMovementInput.x * speedMultiplier;
+        currentMovement.z = currentMovementInput.y * speedMultiplier;
         currentMovement = cam * currentMovement;
-        currentRunMovement.x = currentMovementInput.x * runMultiplier;
-        currentRunMovement.z = currentMovementInput.y * runMultiplier;
+        currentRunMovement.x = currentMovementInput.x * speedMultiplier * runMultiplier;
+        currentRunMovement.z = currentMovementInput.y * speedMultiplier * runMultiplier;
         currentRunMovement = cam * currentRunMovement;
 
         isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
