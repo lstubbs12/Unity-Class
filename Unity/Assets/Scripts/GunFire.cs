@@ -28,7 +28,7 @@ public class GunFire : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 100))
         {
-            Debug.Log("Hit " + hit.collider.name);
+            //Debug.Log("Hit " + hit.collider.name);
         }
 
         

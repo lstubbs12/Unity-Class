@@ -101,6 +101,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet
       objectReference: {fileID: 0}
+    - target: {fileID: 956394210925044756, guid: 0de4afef810fa4d489746cdeb5e9b024, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b3957ef3b61f3c74d93599e82845f2c0, type: 2}
     - target: {fileID: 988193673395591684, guid: 0de4afef810fa4d489746cdeb5e9b024, type: 3}
       propertyPath: m_Enabled
       value: 1
