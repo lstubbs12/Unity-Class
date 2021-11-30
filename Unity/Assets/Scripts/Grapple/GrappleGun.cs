@@ -10,6 +10,7 @@ public class GrappleGun : MonoBehaviour
     private GameObject hook;
     private SpringJoint spring;
     private LineRenderer rope;
+    public Transform camera;
 
     // Start is called before the first frame update
     void Start()
@@ -34,9 +35,25 @@ public class GrappleGun : MonoBehaviour
     }
 
     private void Grapple() {
+        Camera cam = camera.GetComponent<Camera>();
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        //Vector3 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        //Ray ray = new Ray(camera.position, camera.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 100))
+        {
+            //Debug.Log("Hit " + hit.collider.name);
+        }
+
+
+
+        
+            
+
+
         // Instantiate a grappling hook, send it out
         hook = Instantiate(grappleHookPre, gunTip.position, gunTip.rotation);
-        hook.GetComponent<Rigidbody>().AddForce(gunTip.forward * shotForce, ForceMode.Impulse);
+        hook.GetComponent<Rigidbody>().AddForce((hit.point - (gunTip.position + gunTip.right * 2 + gunTip.forward * 2)) * shotForce, ForceMode.Impulse);
 
         // Configure the spring
         spring = transform.root.gameObject.AddComponent<SpringJoint>();

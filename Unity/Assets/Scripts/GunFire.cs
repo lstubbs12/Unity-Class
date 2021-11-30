@@ -17,6 +17,11 @@ public class GunFire : MonoBehaviour
     {
         
     }
+    IEnumerator DieAfterSeconds(GameObject a)
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(a);
+    }
 
     // Update is called once per frame
     void Update()
@@ -37,8 +42,9 @@ public class GunFire : MonoBehaviour
         {
             
             GameObject bullet = Instantiate(bulletpre, gunTip.position, gunTip.rotation);
+            StartCoroutine(DieAfterSeconds(bullet));
             //bullet.GetComponent<Rigidbody>().velocity = player.GetComponent<Rigidbody>().velocity;
-            bullet.GetComponent<Rigidbody>().AddForce((hit.point - gunTip.position) * bulletForce, ForceMode.Impulse);
+            bullet.GetComponent<Rigidbody>().AddForce((hit.point - (gunTip.position + gunTip.forward)) * bulletForce, ForceMode.Impulse);
             
         }
 
